@@ -7,29 +7,11 @@ using UIKit;
 
 namespace AccessoryTextInput
 {
-	public partial class InputView : UIView
+	[Register ("InputView")]
+	public class InputView : UIView
 	{
-		public UITextView pubTextView { get { return TextView; } }
-
 		public InputView (IntPtr handle) : base (handle)
 		{
-		}
-
-		public override void AwakeFromNib ()
-		{
-			base.AwakeFromNib ();
-			TextField.TranslatesAutoresizingMaskIntoConstraints = true;
-
-			TextView.Changed += (object sender, EventArgs e) => {
-				if (TextView.ContentSize.Height >= 128 - 16) {
-					TextView.ScrollEnabled = true;
-				} else {
-					if (TextView.ScrollEnabled) {
-						TextView.ScrollEnabled = false;
-						TextView.SizeToFit();
-					}
-				}
-			};
 		}
 
 		public override void LayoutSubviews ()
@@ -38,14 +20,31 @@ namespace AccessoryTextInput
 			TextField.Frame = TextView.Frame;
 		}
 
-		public override bool BecomeFirstResponder ()
-		{
-			return TextView.BecomeFirstResponder ();
-		}
+		[Outlet]
+		public UIButton DoneButton { get; set; }
 
-		public override bool ResignFirstResponder ()
+		[Outlet]
+		public UITextView TextView { get; set; }
+
+		[Outlet]
+		private UITextField TextField { get; set; }
+
+		void ReleaseDesignerOutlets ()
 		{
-			return TextView.ResignFirstResponder ();
+			if (TextField != null) {
+				TextField.Dispose ();
+				TextField = null;
+			}
+
+			if (TextView != null) {
+				TextView.Dispose ();
+				TextView = null;
+			}
+
+			if (DoneButton != null) {
+				DoneButton.Dispose ();
+				DoneButton = null;
+			}
 		}
 	}
 }

@@ -100,9 +100,6 @@
       <DependentUpon>ViewController.cs</DependentUpon>
     </Compile>
     <Compile Include="InputView\InputView.cs" />
-    <Compile Include="InputView\InputView.designer.cs">
-      <DependentUpon>InputView.cs</DependentUpon>
-    </Compile>
     <Compile Include="TextInputObject.cs" />
     <Compile Include="TextInputObject.designer.cs">
       <DependentUpon>TextInputObject.cs</DependentUpon>

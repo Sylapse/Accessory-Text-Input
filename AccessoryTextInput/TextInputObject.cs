@@ -21,7 +21,6 @@ namespace AccessoryTextInput
 			var arr = NSBundle.MainBundle.LoadNib ("InputView", null, null);
 			_inputView = Runtime.GetNSObject<InputView> (arr.ValueAt(0));
 			_inputView.TranslatesAutoresizingMaskIntoConstraints = false;
-			_inputView.pubTextView.Changed += (object sender, EventArgs e) => BecomeFirstResponder();
 
 			_inputView.AddConstraint (NSLayoutConstraint.Create (_inputView,
 				NSLayoutAttribute.Height,
@@ -37,6 +36,18 @@ namespace AccessoryTextInput
 				NSLayoutAttribute.NoAttribute,
 				0, 128));
 
+			_inputView.TextView.Changed += (object sender, EventArgs e) => {
+				BecomeFirstResponder ();
+
+				if (_inputView.TextView.ContentSize.Height >= 128 - 16) {
+					_inputView.TextView.ScrollEnabled = true;
+				} else {
+					if (_inputView.TextView.ScrollEnabled) {
+						_inputView.TextView.ScrollEnabled = false;
+						_inputView.TextView.SizeToFit ();
+					}
+				}
+			};
 
 			InputAccessoryView = _inputView;
 		}
@@ -44,7 +55,7 @@ namespace AccessoryTextInput
 		public override bool BecomeFirstResponder ()
 		{
 			base.BecomeFirstResponder ();
-			_inputView.BecomeFirstResponder ();
+			_inputView.TextView.BecomeFirstResponder ();
 
 			var cons = _inputView.InputAccessoryView.Superview.Constraints;
 			InputAccessoryView.Superview.RemoveConstraint (cons [0]);
@@ -53,7 +64,7 @@ namespace AccessoryTextInput
 
 		public override bool ResignFirstResponder ()
 		{
-			_inputView.ResignFirstResponder ();
+			_inputView.TextView.ResignFirstResponder ();
 			base.ResignFirstResponder ();
 			return true;
 		}
