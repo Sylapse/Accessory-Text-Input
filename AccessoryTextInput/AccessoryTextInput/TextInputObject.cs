@@ -36,10 +36,11 @@ namespace AccessoryTextInput
 
 		public void GetInput(string hint, string initialText, Action<string> callback)
 		{
-			_callback = callback;
 			_inputView.TextView.Text = initialText;
+			_callback = callback;
 			_hint = hint;
 			SetHint ();
+			DisableScrolling (); // Disable scrolling when the input is shown. It could still be on from the last usage
 			BecomeFirstResponder ();
 		}
 
@@ -71,19 +72,17 @@ namespace AccessoryTextInput
 		{
 			_callback(_inputView.TextView.Text);
 			ResignFirstResponder();			
+			_callback = null;
 		}
 
 		private void TextView_Changed (object sender, EventArgs e)
 		{
 			SetHint ();
 
-			if (_inputView.TextView.ContentSize.Height >= MaxHeight - 16) {	// 16 is two lots of the padding top and bottom of the TextView
+			if (!_inputView.TextView.ScrollEnabled && _inputView.TextView.ContentSize.Height >= MaxHeight - 16) {	// 16 is two lots of the padding top and bottom of the TextView
 				_inputView.TextView.ScrollEnabled = true;
-			} else {
-				if (_inputView.TextView.ScrollEnabled) {
-					_inputView.TextView.ScrollEnabled = false;
-					_inputView.TextView.SizeToFit ();
-				}
+			} else if (_inputView.TextView.ScrollEnabled) {
+				DisableScrolling ();
 			}
 
 			//HACK - Calling BecomeFirstResponder fixes an issue where the UITextView stops growing/shrinking after rotation.
@@ -97,6 +96,12 @@ namespace AccessoryTextInput
 			} else {
 				_inputView.TextField.Placeholder = null;
 			}
+		}
+
+		private void DisableScrolling()
+		{
+			_inputView.TextView.ScrollEnabled = false;
+			_inputView.TextView.SizeToFit ();
 		}
 
 		private void SetConstraints() {
