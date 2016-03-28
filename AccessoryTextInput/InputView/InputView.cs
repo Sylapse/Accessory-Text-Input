@@ -26,7 +26,7 @@ namespace AccessoryTextInput
 
 				} else {
 					TextView.ScrollEnabled = false;
-					TextView.SetNeedsLayout();
+					TextView.SizeToFit();
 				}
 			};
 		}
