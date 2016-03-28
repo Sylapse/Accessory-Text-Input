@@ -14,6 +14,12 @@ namespace AccessoryTextInput
 		{
 		}
 
+		public override void AwakeFromNib ()
+		{
+			base.AwakeFromNib ();
+			TextField.TranslatesAutoresizingMaskIntoConstraints = true;	// No constraints for the TextField, will update it's frame manually
+		}
+
 		public override void LayoutSubviews ()
 		{
 			base.LayoutSubviews ();
