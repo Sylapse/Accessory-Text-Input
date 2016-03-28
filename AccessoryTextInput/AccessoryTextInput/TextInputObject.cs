@@ -11,16 +11,16 @@ namespace AccessoryTextInput
 	public partial class TextInputObject : UITextField
 	{
 		private InputView _inputView;
-
-		public TextInputObject (IntPtr handle) : base (handle)
-		{
-		}
+		private Action<string> _callback;
 
 		public TextInputObject()
 		{			
 			var arr = NSBundle.MainBundle.LoadNib ("InputView", null, null);
 			_inputView = Runtime.GetNSObject<InputView> (arr.ValueAt(0));
 			_inputView.TranslatesAutoresizingMaskIntoConstraints = false;
+
+			_inputView.TextView.Changed += TextView_Changed;
+			_inputView.DoneButton.TouchUpInside += DoneButton_TouchUpInside;
 
 			_inputView.AddConstraint (NSLayoutConstraint.Create (_inputView,
 				NSLayoutAttribute.Height,
@@ -35,21 +35,19 @@ namespace AccessoryTextInput
 				null,
 				NSLayoutAttribute.NoAttribute,
 				0, 128));
-
-			_inputView.TextView.Changed += (object sender, EventArgs e) => {
-				BecomeFirstResponder ();
-
-				if (_inputView.TextView.ContentSize.Height >= 128 - 16) {
-					_inputView.TextView.ScrollEnabled = true;
-				} else {
-					if (_inputView.TextView.ScrollEnabled) {
-						_inputView.TextView.ScrollEnabled = false;
-						_inputView.TextView.SizeToFit ();
-					}
-				}
-			};
-
+			
 			InputAccessoryView = _inputView;
+		}
+
+		public void GetInput(string initialText, Action<string> callback)
+		{
+			_callback = callback;
+			_inputView.TextView.Text = initialText;
+			BecomeFirstResponder ();
+		}
+
+		public void Cancel() {
+			ResignFirstResponder ();
 		}
 
 		public override bool BecomeFirstResponder ()
@@ -67,6 +65,26 @@ namespace AccessoryTextInput
 			_inputView.TextView.ResignFirstResponder ();
 			base.ResignFirstResponder ();
 			return true;
+		}
+
+		private void DoneButton_TouchUpInside (object sender, EventArgs e)
+		{
+			_callback(_inputView.TextView.Text);
+			ResignFirstResponder();			
+		}
+
+		private void TextView_Changed (object sender, EventArgs e)
+		{
+			BecomeFirstResponder ();
+
+			if (_inputView.TextView.ContentSize.Height >= 128 - 16) {
+				_inputView.TextView.ScrollEnabled = true;
+			} else {
+				if (_inputView.TextView.ScrollEnabled) {
+					_inputView.TextView.ScrollEnabled = false;
+					_inputView.TextView.SizeToFit ();
+				}
+			}
 		}
 	}
 }

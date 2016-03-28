@@ -86,7 +86,7 @@
   <ItemGroup>
     <InterfaceDefinition Include="Resources\LaunchScreen.xib" />
     <InterfaceDefinition Include="Main.storyboard" />
-    <InterfaceDefinition Include="InputView\InputView.xib" />
+    <InterfaceDefinition Include="AccessoryTextInput\InputView.xib" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Info.plist" />
@@ -99,14 +99,14 @@
     <Compile Include="ViewController.designer.cs">
       <DependentUpon>ViewController.cs</DependentUpon>
     </Compile>
-    <Compile Include="InputView\InputView.cs" />
-    <Compile Include="TextInputObject.cs" />
-    <Compile Include="TextInputObject.designer.cs">
+    <Compile Include="AccessoryTextInput\InputView.cs" />
+    <Compile Include="AccessoryTextInput\TextInputObject.cs" />
+    <Compile Include="AccessoryTextInput\TextInputObject.designer.cs">
       <DependentUpon>TextInputObject.cs</DependentUpon>
     </Compile>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />
   <ItemGroup>
-    <Folder Include="InputView\" />
+    <Folder Include="AccessoryTextInput\" />
   </ItemGroup>
 </Project>
