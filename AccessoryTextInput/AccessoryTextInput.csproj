@@ -103,6 +103,10 @@
     <Compile Include="InputView\InputView.designer.cs">
       <DependentUpon>InputView.cs</DependentUpon>
     </Compile>
+    <Compile Include="TextInputObject.cs" />
+    <Compile Include="TextInputObject.designer.cs">
+      <DependentUpon>TextInputObject.cs</DependentUpon>
+    </Compile>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />
   <ItemGroup>

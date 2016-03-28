@@ -9,11 +9,11 @@ namespace AccessoryTextInput
 {
 	public partial class InputView : UIView
 	{
+		public UITextView pubTextView { get { return TextView; } }
+
 		public InputView (IntPtr handle) : base (handle)
 		{
 		}
-
-
 
 		public override void AwakeFromNib ()
 		{
@@ -21,8 +21,6 @@ namespace AccessoryTextInput
 			TextField.TranslatesAutoresizingMaskIntoConstraints = true;
 
 			TextView.Changed += (object sender, EventArgs e) => {
-				var test = TextField.TranslatesAutoresizingMaskIntoConstraints;
-
 				if (TextView.ContentSize.Height >= 128 - 16) {
 					TextView.ScrollEnabled = true;
 				} else {

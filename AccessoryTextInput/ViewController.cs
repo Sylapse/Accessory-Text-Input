@@ -8,7 +8,7 @@ namespace AccessoryTextInput
 {
 	public partial class ViewController : UIViewController
 	{
-		private UITextField _dummyView;
+		private TextInputObject _dummyView;
 		private UIView _inputView;
 
 		public ViewController (IntPtr handle) : base (handle)
@@ -21,46 +21,27 @@ namespace AccessoryTextInput
 			Button.TouchUpInside += Button_TouchUpInside;
 			HideButton.TouchUpInside += HideButton_TouchUpInside;
 
-			_dummyView = new UITextField ();
+			_dummyView = new TextInputObject ();
 			View.AddSubview (_dummyView);
 
-			var arr = NSBundle.MainBundle.LoadNib ("InputView", null, null);
-			_inputView = Runtime.GetNSObject<InputView> (arr.ValueAt(0));
-			_inputView.TranslatesAutoresizingMaskIntoConstraints = false;
 
-			_inputView.AddConstraint (NSLayoutConstraint.Create (_inputView,
-				NSLayoutAttribute.Height,
-				NSLayoutRelation.GreaterThanOrEqual,
-				null,
-				NSLayoutAttribute.NoAttribute,
-				0, 44));
-
-			_inputView.AddConstraint (NSLayoutConstraint.Create (_inputView,
-				NSLayoutAttribute.Height,
-				NSLayoutRelation.LessThanOrEqual,
-				null,
-				NSLayoutAttribute.NoAttribute,
-				0, 128));
-
-
-			_dummyView.InputAccessoryView = _inputView;
 		}
 
 		void HideButton_TouchUpInside (object sender, EventArgs e)
 		{
-			_inputView.ResignFirstResponder ();
-
 			_dummyView.ResignFirstResponder ();
+
+//			_inputView.ResignFirstResponder ();
+//
+//			_dummyView.ResignFirstResponder ();
 		}
 
 		void Button_TouchUpInside (object sender, EventArgs e)
 		{
 			_dummyView.BecomeFirstResponder ();
-			_inputView.BecomeFirstResponder ();
 
-
-			var cons = _inputView.InputAccessoryView.Superview.Constraints;
-			_dummyView.InputAccessoryView.Superview.RemoveConstraint (cons [0]);
+//			_dummyView.BecomeFirstResponder ();
+//			_inputView.BecomeFirstResponder ();
 		}
 	}
 }
