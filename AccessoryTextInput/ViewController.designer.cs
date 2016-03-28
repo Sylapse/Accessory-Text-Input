@@ -16,6 +16,9 @@ namespace AccessoryTextInput
 		UIKit.UIButton Button { get; set; }
 
 		[Outlet]
+		UIKit.UIButton HideButton { get; set; }
+
+		[Outlet]
 		UIKit.UILabel Label { get; set; }
 		
 		void ReleaseDesignerOutlets ()
@@ -28,6 +31,11 @@ namespace AccessoryTextInput
 			if (Label != null) {
 				Label.Dispose ();
 				Label = null;
+			}
+
+			if (HideButton != null) {
+				HideButton.Dispose ();
+				HideButton = null;
 			}
 		}
 	}

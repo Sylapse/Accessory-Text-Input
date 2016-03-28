@@ -19,6 +19,7 @@ namespace AccessoryTextInput
 		{
 			base.ViewDidLoad ();
 			Button.TouchUpInside += Button_TouchUpInside;
+			HideButton.TouchUpInside += HideButton_TouchUpInside;
 
 			_dummyView = new UITextField ();
 			View.AddSubview (_dummyView);
@@ -43,6 +44,13 @@ namespace AccessoryTextInput
 
 
 			_dummyView.InputAccessoryView = _inputView;
+		}
+
+		void HideButton_TouchUpInside (object sender, EventArgs e)
+		{
+			_inputView.ResignFirstResponder ();
+
+			_dummyView.ResignFirstResponder ();
 		}
 
 		void Button_TouchUpInside (object sender, EventArgs e)

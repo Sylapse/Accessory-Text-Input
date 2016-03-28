@@ -44,5 +44,10 @@ namespace AccessoryTextInput
 		{
 			return TextView.BecomeFirstResponder ();
 		}
+
+		public override bool ResignFirstResponder ()
+		{
+			return TextView.ResignFirstResponder ();
+		}
 	}
 }
