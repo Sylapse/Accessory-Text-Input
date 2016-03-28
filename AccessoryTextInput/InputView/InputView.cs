@@ -23,10 +23,10 @@ namespace AccessoryTextInput
 
 				if (TextView.ContentSize.Height >= 128 - 16) {
 					TextView.ScrollEnabled = true;
-
 				} else {
 					TextView.ScrollEnabled = false;
 					TextView.SizeToFit();
+					TextView.LayoutIfNeeded();
 				}
 			};
 		}
