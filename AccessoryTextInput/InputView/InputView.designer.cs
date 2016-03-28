@@ -13,6 +13,9 @@ namespace AccessoryTextInput
 	partial class InputView
 	{
 		[Outlet]
+		UIKit.UITextField TextField { get; set; }
+
+		[Outlet]
 		UIKit.UITextView TextView { get; set; }
 		
 		void ReleaseDesignerOutlets ()
@@ -20,6 +23,11 @@ namespace AccessoryTextInput
 			if (TextView != null) {
 				TextView.Dispose ();
 				TextView = null;
+			}
+
+			if (TextField != null) {
+				TextField.Dispose ();
+				TextField = null;
 			}
 		}
 	}

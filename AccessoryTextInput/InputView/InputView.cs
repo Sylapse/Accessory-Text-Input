@@ -18,17 +18,26 @@ namespace AccessoryTextInput
 		public override void AwakeFromNib ()
 		{
 			base.AwakeFromNib ();
+			TextField.TranslatesAutoresizingMaskIntoConstraints = true;
 
 			TextView.Changed += (object sender, EventArgs e) => {
+				var test = TextField.TranslatesAutoresizingMaskIntoConstraints;
 
 				if (TextView.ContentSize.Height >= 128 - 16) {
 					TextView.ScrollEnabled = true;
 				} else {
-					TextView.ScrollEnabled = false;
-					TextView.SizeToFit();
-					TextView.LayoutIfNeeded();
+					if (TextView.ScrollEnabled) {
+						TextView.ScrollEnabled = false;
+						TextView.SizeToFit();
+					}
 				}
 			};
+		}
+
+		public override void LayoutSubviews ()
+		{
+			base.LayoutSubviews ();
+			TextField.Frame = TextView.Frame;
 		}
 
 		public override bool BecomeFirstResponder ()
