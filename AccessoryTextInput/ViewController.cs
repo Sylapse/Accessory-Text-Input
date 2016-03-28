@@ -28,13 +28,12 @@ namespace AccessoryTextInput
 
 		void Button_TouchUpInside (object sender, EventArgs e)
 		{
-			_textInputObject.GetInput ("some text", text => Label.Text = text);
+			_textInputObject.GetInput ("Name", null, text => Label.Text = text);
 		}
 
 		void HideButton_TouchUpInside (object sender, EventArgs e)
 		{
-			_textInputObject.MaxHeight = 90.0f;
-		//	_textInputObject.Cancel ();
+			_textInputObject.Cancel ();
 		}
 	}
 }

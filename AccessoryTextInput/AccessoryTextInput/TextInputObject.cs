@@ -12,6 +12,7 @@ namespace AccessoryTextInput
 	{
 		private InputView _inputView;
 		private Action<string> _callback;
+		private string _hint;
 		private NSLayoutConstraint _maxHeightConstraint;
 
 		private nfloat _maxHeight = 128.0f;
@@ -33,10 +34,12 @@ namespace AccessoryTextInput
 			InputAccessoryView = _inputView;
 		}
 
-		public void GetInput(string initialText, Action<string> callback)
+		public void GetInput(string hint, string initialText, Action<string> callback)
 		{
 			_callback = callback;
 			_inputView.TextView.Text = initialText;
+			_hint = hint;
+			SetHint ();
 			BecomeFirstResponder ();
 		}
 
@@ -72,9 +75,7 @@ namespace AccessoryTextInput
 
 		private void TextView_Changed (object sender, EventArgs e)
 		{
-			//HACK - Calling BecomeFirstResponder fixes an issue where the UITextView stops growing/shrinking after rotation.
-			//		 There must be a more subtle solution that is being triggered by BecomeFirstResponder but less heavy handed.
-			BecomeFirstResponder ();
+			SetHint ();
 
 			if (_inputView.TextView.ContentSize.Height >= MaxHeight - 16) {	// 16 is two lots of the padding top and bottom of the TextView
 				_inputView.TextView.ScrollEnabled = true;
@@ -83,6 +84,18 @@ namespace AccessoryTextInput
 					_inputView.TextView.ScrollEnabled = false;
 					_inputView.TextView.SizeToFit ();
 				}
+			}
+
+			//HACK - Calling BecomeFirstResponder fixes an issue where the UITextView stops growing/shrinking after rotation.
+			//		 There must be a more subtle solution that is being triggered by BecomeFirstResponder but less heavy handed.
+			BecomeFirstResponder ();
+		}
+
+		private void SetHint() {
+			if (string.IsNullOrEmpty (_inputView.TextView.Text)) {
+				_inputView.TextField.Placeholder = _hint;
+			} else {
+				_inputView.TextField.Placeholder = null;
 			}
 		}
 

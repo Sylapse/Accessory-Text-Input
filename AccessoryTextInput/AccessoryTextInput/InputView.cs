@@ -27,7 +27,7 @@ namespace AccessoryTextInput
 		public UITextView TextView { get; set; }
 
 		[Outlet]
-		private UITextField TextField { get; set; }
+		public UITextField TextField { get; set; }
 
 		void ReleaseDesignerOutlets ()
 		{
