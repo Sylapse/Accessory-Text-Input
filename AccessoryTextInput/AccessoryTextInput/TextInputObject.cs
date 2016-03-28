@@ -12,6 +12,13 @@ namespace AccessoryTextInput
 	{
 		private InputView _inputView;
 		private Action<string> _callback;
+		private NSLayoutConstraint _maxHeightConstraint;
+
+		private nfloat _maxHeight = 128.0f;
+		public nfloat MaxHeight { 
+			get { return _maxHeight; }
+			set { _maxHeight = value; _maxHeightConstraint.Constant = value; } 
+		}
 
 		public TextInputObject()
 		{			
@@ -22,20 +29,7 @@ namespace AccessoryTextInput
 			_inputView.TextView.Changed += TextView_Changed;
 			_inputView.DoneButton.TouchUpInside += DoneButton_TouchUpInside;
 
-			_inputView.AddConstraint (NSLayoutConstraint.Create (_inputView,
-				NSLayoutAttribute.Height,
-				NSLayoutRelation.GreaterThanOrEqual,
-				null,
-				NSLayoutAttribute.NoAttribute,
-				0, 44));
-
-			_inputView.AddConstraint (NSLayoutConstraint.Create (_inputView,
-				NSLayoutAttribute.Height,
-				NSLayoutRelation.LessThanOrEqual,
-				null,
-				NSLayoutAttribute.NoAttribute,
-				0, 128));
-			
+			SetConstraints ();
 			InputAccessoryView = _inputView;
 		}
 
@@ -47,6 +41,7 @@ namespace AccessoryTextInput
 		}
 
 		public void Cancel() {
+			_callback = null;
 			ResignFirstResponder ();
 		}
 
@@ -55,8 +50,10 @@ namespace AccessoryTextInput
 			base.BecomeFirstResponder ();
 			_inputView.TextView.BecomeFirstResponder ();
 
-			var cons = _inputView.InputAccessoryView.Superview.Constraints;
-			InputAccessoryView.Superview.RemoveConstraint (cons [0]);
+			//HACK - iOS adds a height constraint which prevents the UITextView from expanding so we remove it manually.
+			//		 Probably ought to check more carefully but currently just remove the first constraint in the array.
+			var accessoryParentConstraints = _inputView.InputAccessoryView.Superview.Constraints;
+			InputAccessoryView.Superview.RemoveConstraint (accessoryParentConstraints [0]);
 			return true;
 		}
 
@@ -75,9 +72,11 @@ namespace AccessoryTextInput
 
 		private void TextView_Changed (object sender, EventArgs e)
 		{
+			//HACK - Calling BecomeFirstResponder fixes an issue where the UITextView stops growing/shrinking after rotation.
+			//		 There must be a more subtle solution that is being triggered by BecomeFirstResponder but less heavy handed.
 			BecomeFirstResponder ();
 
-			if (_inputView.TextView.ContentSize.Height >= 128 - 16) {
+			if (_inputView.TextView.ContentSize.Height >= MaxHeight - 16) {	// 16 is two lots of the padding top and bottom of the TextView
 				_inputView.TextView.ScrollEnabled = true;
 			} else {
 				if (_inputView.TextView.ScrollEnabled) {
@@ -85,6 +84,26 @@ namespace AccessoryTextInput
 					_inputView.TextView.SizeToFit ();
 				}
 			}
+		}
+
+		private void SetConstraints() {
+			_maxHeightConstraint = NSLayoutConstraint.Create (_inputView,
+				NSLayoutAttribute.Height,
+				NSLayoutRelation.LessThanOrEqual,
+				null,
+				NSLayoutAttribute.NoAttribute,
+				0, MaxHeight);
+
+
+			var minHeightConstraint = NSLayoutConstraint.Create (_inputView,
+				NSLayoutAttribute.Height,
+				NSLayoutRelation.GreaterThanOrEqual,
+				null,
+				NSLayoutAttribute.NoAttribute,
+				0, 44);
+
+			_inputView.AddConstraint (_maxHeightConstraint);
+			_inputView.AddConstraint (minHeightConstraint);
 		}
 	}
 }

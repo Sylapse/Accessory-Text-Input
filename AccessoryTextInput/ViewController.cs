@@ -33,7 +33,8 @@ namespace AccessoryTextInput
 
 		void HideButton_TouchUpInside (object sender, EventArgs e)
 		{
-			_textInputObject.Cancel ();
+			_textInputObject.MaxHeight = 90.0f;
+		//	_textInputObject.Cancel ();
 		}
 	}
 }
