@@ -13,6 +13,24 @@ namespace AccessoryTextInput
 		{
 		}
 
+
+
+		public override void AwakeFromNib ()
+		{
+			base.AwakeFromNib ();
+
+			TextView.Changed += (object sender, EventArgs e) => {
+
+				if (TextView.ContentSize.Height >= 128 - 16) {
+					TextView.ScrollEnabled = true;
+
+				} else {
+					TextView.ScrollEnabled = false;
+					TextView.SetNeedsLayout();
+				}
+			};
+		}
+
 		public override bool BecomeFirstResponder ()
 		{
 			return TextView.BecomeFirstResponder ();
