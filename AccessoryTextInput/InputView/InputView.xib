@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="10116" systemVersion="15E65" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="Y5A-hM-re6" customClass="InputView">
+            <rect key="frame" x="0.0" y="0.0" width="425" height="158"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <subviews>
+                <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" horizontalCompressionResistancePriority="751" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="LF7-La-6aV">
+                    <rect key="frame" x="380" y="120" width="37" height="30"/>
+                    <state key="normal" title="Done"/>
+                </button>
+                <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" text="Lorem ipsumue civiuda." textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="Cz9-nl-6cZ">
+                    <rect key="frame" x="8" y="8" width="364" height="142"/>
+                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                    <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                </textView>
+            </subviews>
+            <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="calibratedRGB"/>
+            <constraints>
+                <constraint firstAttribute="trailing" secondItem="LF7-La-6aV" secondAttribute="trailing" constant="8" id="11y-Wu-XZf"/>
+                <constraint firstAttribute="bottom" secondItem="Cz9-nl-6cZ" secondAttribute="bottom" constant="8" id="8dA-xO-ais"/>
+                <constraint firstItem="LF7-La-6aV" firstAttribute="leading" secondItem="Cz9-nl-6cZ" secondAttribute="trailing" constant="8" id="BGt-5c-7Ma"/>
+                <constraint firstAttribute="bottom" secondItem="LF7-La-6aV" secondAttribute="bottom" constant="8" id="rbo-dH-KcN"/>
+                <constraint firstItem="Cz9-nl-6cZ" firstAttribute="leading" secondItem="Y5A-hM-re6" secondAttribute="leading" constant="8" id="riG-HF-rNj"/>
+                <constraint firstItem="Cz9-nl-6cZ" firstAttribute="top" secondItem="Y5A-hM-re6" secondAttribute="top" constant="8" id="yN3-ca-fcb"/>
+            </constraints>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <connections>
+                <outlet property="TextView" destination="Cz9-nl-6cZ" id="Yps-cf-Hvv"/>
+            </connections>
+            <point key="canvasLocation" x="272.5" y="231"/>
+        </view>
+    </objects>
+</document>

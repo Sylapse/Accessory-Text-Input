@@ -9,25 +9,17 @@ using System.CodeDom.Compiler;
 
 namespace AccessoryTextInput
 {
-	[Register ("ViewController")]
-	partial class ViewController
+	[Register ("InputView")]
+	partial class InputView
 	{
 		[Outlet]
-		UIKit.UIButton Button { get; set; }
-
-		[Outlet]
-		UIKit.UILabel Label { get; set; }
+		UIKit.UITextView TextView { get; set; }
 		
 		void ReleaseDesignerOutlets ()
 		{
-			if (Button != null) {
-				Button.Dispose ();
-				Button = null;
-			}
-
-			if (Label != null) {
-				Label.Dispose ();
-				Label = null;
+			if (TextView != null) {
+				TextView.Dispose ();
+				TextView = null;
 			}
 		}
 	}

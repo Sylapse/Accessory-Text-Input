@@ -1,11 +1,16 @@
 ﻿using System;
 
 using UIKit;
+using Foundation;
+using ObjCRuntime;
 
 namespace AccessoryTextInput
 {
 	public partial class ViewController : UIViewController
 	{
+		private UITextField _dummyView;
+		private UIView _inputView;
+
 		public ViewController (IntPtr handle) : base (handle)
 		{
 		}
@@ -13,13 +18,41 @@ namespace AccessoryTextInput
 		public override void ViewDidLoad ()
 		{
 			base.ViewDidLoad ();
-			// Perform any additional setup after loading the view, typically from a nib.
+			Button.TouchUpInside += Button_TouchUpInside;
+
+			_dummyView = new UITextField ();
+			View.AddSubview (_dummyView);
+
+			var arr = NSBundle.MainBundle.LoadNib ("InputView", null, null);
+			_inputView = Runtime.GetNSObject<InputView> (arr.ValueAt(0));
+			_inputView.TranslatesAutoresizingMaskIntoConstraints = false;
+
+			_inputView.AddConstraint (NSLayoutConstraint.Create (_inputView,
+				NSLayoutAttribute.Height,
+				NSLayoutRelation.GreaterThanOrEqual,
+				null,
+				NSLayoutAttribute.NoAttribute,
+				0, 44));
+
+			_inputView.AddConstraint (NSLayoutConstraint.Create (_inputView,
+				NSLayoutAttribute.Height,
+				NSLayoutRelation.LessThanOrEqual,
+				null,
+				NSLayoutAttribute.NoAttribute,
+				0, 128));
+
+
+			_dummyView.InputAccessoryView = _inputView;
 		}
 
-		public override void DidReceiveMemoryWarning ()
+		void Button_TouchUpInside (object sender, EventArgs e)
 		{
-			base.DidReceiveMemoryWarning ();
-			// Release any cached data, images, etc that aren't in use.
+			_dummyView.BecomeFirstResponder ();
+			_inputView.BecomeFirstResponder ();
+
+
+			var cons = _inputView.InputAccessoryView.Superview.Constraints;
+			_dummyView.InputAccessoryView.Superview.RemoveConstraint (cons [0]);
 		}
 	}
 }
