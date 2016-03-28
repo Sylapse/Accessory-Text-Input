@@ -26,6 +26,12 @@ namespace AccessoryTextInput
 
 		}
 
+		public override void DidRotate (UIInterfaceOrientation fromInterfaceOrientation)
+		{
+			base.DidRotate (fromInterfaceOrientation);
+			_textInputObject.DidRotate ();
+		}
+
 		void Button_TouchUpInside (object sender, EventArgs e)
 		{
 			_textInputObject.GetInput ("Name", null, text => Label.Text = text);

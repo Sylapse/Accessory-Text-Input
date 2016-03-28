@@ -13,6 +13,7 @@ namespace AccessoryTextInput
 		private InputView _inputView;
 		private Action<string> _callback;
 		private string _hint;
+		private bool _didRotate = false;
 		private NSLayoutConstraint _maxHeightConstraint;
 
 		private nfloat _maxHeight = 128.0f;
@@ -68,6 +69,11 @@ namespace AccessoryTextInput
 			return true;
 		}
 
+		public void DidRotate() 
+		{
+			_didRotate = true;
+		}
+
 		private void DoneButton_TouchUpInside (object sender, EventArgs e)
 		{
 			_callback(_inputView.TextView.Text);
@@ -79,7 +85,7 @@ namespace AccessoryTextInput
 		{
 			SetHint ();
 
-			if (!_inputView.TextView.ScrollEnabled && _inputView.TextView.ContentSize.Height >= MaxHeight - 16) {	// 16 is two lots of the padding top and bottom of the TextView
+			if (_inputView.TextView.ContentSize.Height >= MaxHeight - 16) {	// 16 is two lots of the padding top and bottom of the TextView
 				_inputView.TextView.ScrollEnabled = true;
 			} else if (_inputView.TextView.ScrollEnabled) {
 				DisableScrolling ();
@@ -87,7 +93,15 @@ namespace AccessoryTextInput
 
 			//HACK - Calling BecomeFirstResponder fixes an issue where the UITextView stops growing/shrinking after rotation.
 			//		 There must be a more subtle solution that is being triggered by BecomeFirstResponder but less heavy handed.
-			BecomeFirstResponder ();
+			//		 Also this stops the user holding down delete. So need a proper solution!
+			//BecomeFirstResponder ();
+
+			//HACK - Changed the hack so it only happens if the containing View Controller alerts the TextInputObject of a rotation. 
+			//		 Annoying extra code in the ViewController but at least everything is working nicely.
+			if (_didRotate) {
+				BecomeFirstResponder ();
+				_didRotate = false;
+			}
 		}
 
 		private void SetHint() {
