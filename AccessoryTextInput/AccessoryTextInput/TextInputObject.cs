@@ -5,6 +5,7 @@ using System;
 using Foundation;
 using UIKit;
 using ObjCRuntime;
+using System.Linq;
 
 namespace AccessoryTextInput
 {
@@ -13,7 +14,6 @@ namespace AccessoryTextInput
 		private InputView _inputView;
 		private Action<string> _callback;
 		private string _hint;
-		private bool _didRotate = false;
 		private NSLayoutConstraint _maxHeightConstraint;
 
 		private nfloat _maxHeight = 128.0f;
@@ -55,10 +55,8 @@ namespace AccessoryTextInput
 			base.BecomeFirstResponder ();
 			_inputView.TextView.BecomeFirstResponder ();
 
-			//HACK - iOS adds a height constraint which prevents the UITextView from expanding so we remove it manually.
-			//		 Probably ought to check more carefully but currently just remove the first constraint in the array.
-			var accessoryParentConstraints = _inputView.InputAccessoryView.Superview.Constraints;
-			InputAccessoryView.Superview.RemoveConstraint (accessoryParentConstraints [0]);
+			// Remove the automatic height constraint on the accessory input view to allow the custom views to size themselves appropriately
+			RemoveAutomaticHeightConstraint ();
 			return true;
 		}
 
@@ -69,16 +67,11 @@ namespace AccessoryTextInput
 			return true;
 		}
 
-		public void DidRotate() 
-		{
-			_didRotate = true;
-		}
-
 		private void DoneButton_TouchUpInside (object sender, EventArgs e)
 		{
-			_callback(_inputView.TextView.Text);
-			ResignFirstResponder();			
+			_callback(_inputView.TextView.Text);	
 			_callback = null;
+			ResignFirstResponder ();
 		}
 
 		private void TextView_Changed (object sender, EventArgs e)
@@ -91,20 +84,12 @@ namespace AccessoryTextInput
 				DisableScrolling ();
 			}
 
-			//HACK - Calling BecomeFirstResponder fixes an issue where the UITextView stops growing/shrinking after rotation.
-			//		 There must be a more subtle solution that is being triggered by BecomeFirstResponder but less heavy handed.
-			//		 Also this stops the user holding down delete. So need a proper solution!
-			//BecomeFirstResponder ();
-
-			//HACK - Changed the hack so it only happens if the containing View Controller alerts the TextInputObject of a rotation. 
-			//		 Annoying extra code in the ViewController but at least everything is working nicely.
-			if (_didRotate) {
-				BecomeFirstResponder ();
-				_didRotate = false;
-			}
+			// The height constraint can be added back by iOS due to rotation or backgrounding and foregrounding the app while editing, checking here solves it.
+			RemoveAutomaticHeightConstraint ();
 		}
 
-		private void SetHint() {
+		private void SetHint() 
+		{
 			if (string.IsNullOrEmpty (_inputView.TextView.Text)) {
 				_inputView.TextField.Placeholder = _hint;
 			} else {
@@ -118,7 +103,8 @@ namespace AccessoryTextInput
 			_inputView.TextView.SizeToFit ();
 		}
 
-		private void SetConstraints() {
+		private void SetConstraints() 
+		{
 			_maxHeightConstraint = NSLayoutConstraint.Create (_inputView,
 				NSLayoutAttribute.Height,
 				NSLayoutRelation.LessThanOrEqual,
@@ -136,6 +122,22 @@ namespace AccessoryTextInput
 
 			_inputView.AddConstraint (_maxHeightConstraint);
 			_inputView.AddConstraint (minHeightConstraint);
+		}
+
+		// iOS adds a height constraint to accessory input views. In this case it stops the TextView growing so remove it.
+		private void RemoveAutomaticHeightConstraint() 
+		{
+			var accessoryParentConstraints = _inputView.InputAccessoryView.Superview.Constraints;
+			var heightConstraint = accessoryParentConstraints.FirstOrDefault (c => 
+				c.FirstItem == _inputView &&
+				c.FirstAttribute == NSLayoutAttribute.Height &&
+				c.SecondItem == null &&
+				c.SecondAttribute == NSLayoutAttribute.NoAttribute &&
+				c.Relation == NSLayoutRelation.Equal);
+
+			if (heightConstraint != null) {
+				InputAccessoryView.Superview.RemoveConstraint (heightConstraint);
+			}
 		}
 	}
 }

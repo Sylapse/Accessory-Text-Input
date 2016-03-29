@@ -22,14 +22,6 @@ namespace AccessoryTextInput
 
 			_textInputObject = new TextInputObject ();
 			View.AddSubview (_textInputObject);
-
-
-		}
-
-		public override void DidRotate (UIInterfaceOrientation fromInterfaceOrientation)
-		{
-			base.DidRotate (fromInterfaceOrientation);
-			_textInputObject.DidRotate ();
 		}
 
 		void Button_TouchUpInside (object sender, EventArgs e)
