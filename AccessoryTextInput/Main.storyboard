@@ -23,7 +23,7 @@
                                 <state key="normal" title="Get input"/>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="EFy-1Q-8GG">
-                                <rect key="frame" x="155" y="56" width="53" height="33"/>
+                                <rect key="frame" x="274" y="56" width="53" height="33"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <state key="normal" title="Cancel"/>
                             </button>
@@ -33,20 +33,27 @@
                                 <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="BjY-To-Sqf">
+                                <rect key="frame" x="539" y="58" width="41" height="30"/>
+                                <state key="normal" title="Finish"/>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="gMx-nh-XdK" firstAttribute="top" secondItem="x2s-mC-y3f" secondAttribute="bottom" constant="16" id="3e3-iI-ZHC"/>
+                            <constraint firstItem="BjY-To-Sqf" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="38" id="98G-bH-EdS"/>
                             <constraint firstItem="gMx-nh-XdK" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" id="9HP-VI-Qnf"/>
                             <constraint firstItem="x2s-mC-y3f" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="36" id="EwT-VL-SCD"/>
-                            <constraint firstItem="EFy-1Q-8GG" firstAttribute="leading" secondItem="x2s-mC-y3f" secondAttribute="trailing" constant="64" id="KsP-wW-B9Z"/>
+                            <constraint firstItem="BjY-To-Sqf" firstAttribute="trailing" secondItem="8bC-Xf-vdC" secondAttribute="trailingMargin" id="QsZ-6S-YDe"/>
                             <constraint firstItem="EFy-1Q-8GG" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="36" id="RTw-M2-23F"/>
+                            <constraint firstItem="EFy-1Q-8GG" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="SWO-rX-uXS"/>
                             <constraint firstItem="x2s-mC-y3f" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" id="ifE-CD-XXR"/>
                             <constraint firstAttribute="trailingMargin" secondItem="gMx-nh-XdK" secondAttribute="trailing" id="pEg-OP-kHZ"/>
                         </constraints>
                     </view>
                     <connections>
                         <outlet property="Button" destination="x2s-mC-y3f" id="xCg-mH-dIf"/>
+                        <outlet property="FinishButton" destination="BjY-To-Sqf" id="8D0-AP-1E1"/>
                         <outlet property="HideButton" destination="EFy-1Q-8GG" id="s6G-bY-9gE"/>
                         <outlet property="Label" destination="gMx-nh-XdK" id="KUf-NN-osn"/>
                     </connections>

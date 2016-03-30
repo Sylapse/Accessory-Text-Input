@@ -17,21 +17,27 @@ namespace AccessoryTextInput
 		public override void ViewDidLoad ()
 		{
 			base.ViewDidLoad ();
-			Button.TouchUpInside += Button_TouchUpInside;
-			HideButton.TouchUpInside += HideButton_TouchUpInside;
+			Button.TouchUpInside += GetInput;
+			HideButton.TouchUpInside += Cancel;
+			FinishButton.TouchUpInside += Finish;
 
 			_textInputObject = new TextInputObject ();
 			View.AddSubview (_textInputObject);
 		}
 
-		void Button_TouchUpInside (object sender, EventArgs e)
+		void GetInput (object sender, EventArgs e)
 		{
 			_textInputObject.GetInput ("Name", null, text => Label.Text = text);
 		}
 
-		void HideButton_TouchUpInside (object sender, EventArgs e)
+		void Cancel (object sender, EventArgs e)
 		{
 			_textInputObject.Cancel ();
+		}
+
+		void Finish (object sender, EventArgs e)
+		{
+			_textInputObject.Finish ();
 		}
 	}
 }

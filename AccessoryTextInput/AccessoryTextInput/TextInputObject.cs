@@ -35,17 +35,29 @@ namespace AccessoryTextInput
 			InputAccessoryView = _inputView;
 		}
 
-		public void GetInput(string hint, string initialText, Action<string> callback)
+		public void GetInput(string hint, string initialText, Action<string> callback, UIKeyboardType keyboardType = UIKeyboardType.Default, UITextAutocapitalizationType capitalizationType = UITextAutocapitalizationType.Sentences)
 		{
 			_inputView.TextView.Text = initialText;
+			_inputView.TextView.KeyboardType = keyboardType;
+			_inputView.TextView.AutocapitalizationType = capitalizationType;
 			_callback = callback;
 			_hint = hint;
 			SetHint ();
 			DisableScrolling (); // Disable scrolling when the input is shown. It could still be on from the last usage
-			BecomeFirstResponder ();
+			BecomeFirstResponder ();            
 		}
 
-		public void Cancel() {
+		public void Finish () 
+		{
+			if (_inputView.TextView.IsFirstResponder) {
+				_callback (_inputView.TextView.Text);
+				_callback = null;
+				ResignFirstResponder ();
+			}
+		}
+
+		public void Cancel() 
+		{
 			_callback = null;
 			ResignFirstResponder ();
 		}

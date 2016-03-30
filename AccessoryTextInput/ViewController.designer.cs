@@ -16,6 +16,9 @@ namespace AccessoryTextInput
 		UIKit.UIButton Button { get; set; }
 
 		[Outlet]
+		UIKit.UIButton FinishButton { get; set; }
+
+		[Outlet]
 		UIKit.UIButton HideButton { get; set; }
 
 		[Outlet]
@@ -28,14 +31,19 @@ namespace AccessoryTextInput
 				Button = null;
 			}
 
+			if (HideButton != null) {
+				HideButton.Dispose ();
+				HideButton = null;
+			}
+
 			if (Label != null) {
 				Label.Dispose ();
 				Label = null;
 			}
 
-			if (HideButton != null) {
-				HideButton.Dispose ();
-				HideButton = null;
+			if (FinishButton != null) {
+				FinishButton.Dispose ();
+				FinishButton = null;
 			}
 		}
 	}
