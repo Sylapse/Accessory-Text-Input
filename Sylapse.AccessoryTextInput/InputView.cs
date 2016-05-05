@@ -5,7 +5,7 @@ using System;
 using Foundation;
 using UIKit;
 
-namespace AccessoryTextInput
+namespace Sylapse.AccessoryTextInput
 {
 	[Register ("InputView")]
 	public class InputView : UIView

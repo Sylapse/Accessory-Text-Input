@@ -86,7 +86,6 @@
   <ItemGroup>
     <InterfaceDefinition Include="Resources\LaunchScreen.xib" />
     <InterfaceDefinition Include="Main.storyboard" />
-    <InterfaceDefinition Include="AccessoryTextInput\InputView.xib" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Info.plist" />
@@ -99,14 +98,12 @@
     <Compile Include="ViewController.designer.cs">
       <DependentUpon>ViewController.cs</DependentUpon>
     </Compile>
-    <Compile Include="AccessoryTextInput\InputView.cs" />
-    <Compile Include="AccessoryTextInput\TextInputObject.cs" />
-    <Compile Include="AccessoryTextInput\TextInputObject.designer.cs">
-      <DependentUpon>TextInputObject.cs</DependentUpon>
-    </Compile>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />
   <ItemGroup>
-    <Folder Include="AccessoryTextInput\" />
+    <ProjectReference Include="..\Sylapse.AccessoryTextInput\Sylapse.AccessoryTextInput.csproj">
+      <Project>{3D312AB8-9ECC-4A1D-A693-A78813D80814}</Project>
+      <Name>Sylapse.AccessoryTextInput</Name>
+    </ProjectReference>
   </ItemGroup>
 </Project>

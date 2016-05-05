@@ -7,7 +7,7 @@
 using Foundation;
 using System.CodeDom.Compiler;
 
-namespace AccessoryTextInput
+namespace Sylapse.AccessoryTextInput
 {
 	[Register ("TextInputObject")]
 	partial class TextInputObject

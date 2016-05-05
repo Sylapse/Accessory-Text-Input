@@ -3,6 +3,7 @@
 using UIKit;
 using Foundation;
 using ObjCRuntime;
+using Sylapse.AccessoryTextInput;
 
 namespace AccessoryTextInput
 {

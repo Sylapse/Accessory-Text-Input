@@ -7,7 +7,7 @@ using UIKit;
 using ObjCRuntime;
 using System.Linq;
 
-namespace AccessoryTextInput
+namespace Sylapse.AccessoryTextInput
 {
 	public partial class TextInputObject : UITextField
 	{
