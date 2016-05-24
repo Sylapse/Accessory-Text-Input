@@ -22,6 +22,11 @@ namespace Sylapse.AccessoryTextInput
 			set { _maxHeight = value; _maxHeightConstraint.Constant = value; } 
 		}
 
+		public UIColor BackgroundColor {
+			get { return _inputView.BackgroundColor; }
+			set { _inputView.BackgroundColor = value; }
+		}
+
 		public TextInputObject()
 		{			
 			var arr = NSBundle.MainBundle.LoadNib ("InputView", null, null);
@@ -33,6 +38,8 @@ namespace Sylapse.AccessoryTextInput
 
 			SetConstraints ();
 			InputAccessoryView = _inputView;
+
+			BackgroundColor = AccessoryTextInputAppearance.BackgroundColor;
 		}
 
 		public void GetInput(string hint, string initialText, Action<string> callback, UIKeyboardType keyboardType = UIKeyboardType.Default, UITextAutocapitalizationType capitalizationType = UITextAutocapitalizationType.Sentences)

@@ -48,6 +48,7 @@
     <Compile Include="TextInputObject.designer.cs">
       <DependentUpon>TextInputObject.cs</DependentUpon>
     </Compile>
+    <Compile Include="AccessoryTextInputAppearance.cs" />
   </ItemGroup>
   <ItemGroup>
     <InterfaceDefinition Include="InputView.xib" />
