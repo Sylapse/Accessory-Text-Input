@@ -22,10 +22,15 @@ namespace Sylapse.AccessoryTextInput
 			set { _maxHeight = value; _maxHeightConstraint.Constant = value; } 
 		}
 
-		public UIColor BackgroundColor {
+		public new UIColor BackgroundColor {
 			get { return _inputView.BackgroundColor; }
 			set { _inputView.BackgroundColor = value; }
 		}
+
+        public UIColor ButtonTextColor {
+            get { return _inputView.DoneButton.TintColor; }
+            set { _inputView.DoneButton.TintColor = value; }
+        }
 
 		public TextInputObject()
 		{			
@@ -40,6 +45,7 @@ namespace Sylapse.AccessoryTextInput
 			InputAccessoryView = _inputView;
 
 			BackgroundColor = AccessoryTextInputAppearance.BackgroundColor;
+            ButtonTextColor = AccessoryTextInputAppearance.ButtonTextColor;
 		}
 
 		public void GetInput(string hint, string initialText, Action<string> callback, UIKeyboardType keyboardType = UIKeyboardType.Default, UITextAutocapitalizationType capitalizationType = UITextAutocapitalizationType.Sentences)
