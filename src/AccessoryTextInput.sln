@@ -1,0 +1,28 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 14
+VisualStudioVersion = 14.0.25420.1
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sylapse.AccessoryTextInput", "Sylapse.AccessoryTextInput\Sylapse.AccessoryTextInput.csproj", "{3D312AB8-9ECC-4A1D-A693-A78813D80814}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|iPhone = Debug|iPhone
+		Debug|iPhoneSimulator = Debug|iPhoneSimulator
+		Release|iPhone = Release|iPhone
+		Release|iPhoneSimulator = Release|iPhoneSimulator
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{3D312AB8-9ECC-4A1D-A693-A78813D80814}.Debug|iPhone.ActiveCfg = Debug|Any CPU
+		{3D312AB8-9ECC-4A1D-A693-A78813D80814}.Debug|iPhone.Build.0 = Debug|Any CPU
+		{3D312AB8-9ECC-4A1D-A693-A78813D80814}.Debug|iPhoneSimulator.ActiveCfg = Debug|Any CPU
+		{3D312AB8-9ECC-4A1D-A693-A78813D80814}.Debug|iPhoneSimulator.Build.0 = Debug|Any CPU
+		{3D312AB8-9ECC-4A1D-A693-A78813D80814}.Release|iPhone.ActiveCfg = Release|Any CPU
+		{3D312AB8-9ECC-4A1D-A693-A78813D80814}.Release|iPhone.Build.0 = Release|Any CPU
+		{3D312AB8-9ECC-4A1D-A693-A78813D80814}.Release|iPhoneSimulator.ActiveCfg = Release|Any CPU
+		{3D312AB8-9ECC-4A1D-A693-A78813D80814}.Release|iPhoneSimulator.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
