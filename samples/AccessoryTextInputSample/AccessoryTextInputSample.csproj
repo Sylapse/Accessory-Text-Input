@@ -103,7 +103,7 @@
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />
   <ItemGroup>
-    <ProjectReference Include="..\Sylapse.AccessoryTextInput\Sylapse.AccessoryTextInput.csproj">
+    <ProjectReference Include="..\..\src\Sylapse.AccessoryTextInput\Sylapse.AccessoryTextInput.csproj">
       <Project>{3D312AB8-9ECC-4A1D-A693-A78813D80814}</Project>
       <Name>Sylapse.AccessoryTextInput</Name>
     </ProjectReference>

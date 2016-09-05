@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<package >
+  <metadata>
+    <id>Sylapse.AccessoryTextInput</id>
+    <version>1.0.1</version>
+    <title>Keyboard anchored text input for iOS</title>
+    <authors>Tom Pratt</authors>
+    <owners>Tom Pratt</owners>
+    <licenseUrl>https://github.com/Sylapse/AccessoryTextInput/blob/master/LICENSE</licenseUrl>
+    <projectUrl>https://github.com/Sylapse/AccessoryTextInput</projectUrl>
+
+    <iconUrl>
+      https://www.nuget.org/Content/Images/packageDefaultIcon.png
+    </iconUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>Text input anchored to the keyboard for iOS</description>
+    <copyright>Copyright 2016</copyright>
+    <tags>xamarin, ios, keyboard, AccessoryView</tags>
+  </metadata>
+  <files>
+    <file src="..\src\Sylapse.AccessoryTextInput\bin\Release\Sylapse.AccessoryTextInput.dll" target="lib\Xamarin.iOS10\Sylapse.AccessoryTextInput.dll" />
+  </files>
+</package>

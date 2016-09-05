@@ -5,6 +5,11 @@ VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sylapse.AccessoryTextInput", "Sylapse.AccessoryTextInput\Sylapse.AccessoryTextInput.csproj", "{3D312AB8-9ECC-4A1D-A693-A78813D80814}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{BE39DEB1-4236-4211-96A7-2EBB2DEB31FB}"
+	ProjectSection(SolutionItems) = preProject
+		..\nuget\Sylapse.AccessoryTextInput.nuspec = ..\nuget\Sylapse.AccessoryTextInput.nuspec
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|iPhone = Debug|iPhone
